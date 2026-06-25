@@ -62,6 +62,11 @@ button {
     text-shadow: 0 0 15px gold;
     margin: 15px 0;
 }
+#item-popup button {
+    position: relative;
+    z-index: 1001;
+    margin: 10px;
+}
 #key-icon {
     font-size: 100px;
     animation: keyPop 1s ease-out;
@@ -82,11 +87,32 @@ button {
 #back-btn {
     position: fixed;
     top: 10px;
-    left: 10px;
+    left: 1px;
     background-color: transparent;
-    color: white;
+    color: lightblue;
     border: none;
-    font-size: 30px;
+    font-size: 15px;
     cursor: pointer;
     z-index: 1000;
+}
+table {
+    width: 90%;
+    border-collapse: collapse;
+    margin: 20px auto;
+}
+
+table th, table td {
+    padding: 10px;
+    border: 1px solid gold;
+    color: white;
+    text-shadow: 1px 1px 4px black;
+}
+
+table th {
+    background-color: rgba(0,0,0,0.7);
+    color: gold;
+}
+
+table tr:nth-child(even) {
+    background-color: rgba(0,0,0,0.4);
 }
