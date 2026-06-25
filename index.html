@@ -11,5 +11,31 @@
     <p>Your adventure begins here...</p>
     <button onclick="startGame()">🌿 Start Adventure</button>
     <script src="script.js"></script>
+    <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyCTyXcTyZeVakkIJ1aTiqHwbOqlrF9imEs",
+    authDomain: "the-lost-temple-game-6172d.firebaseapp.com",
+    projectId: "the-lost-temple-game-6172d",
+    storageBucket: "the-lost-temple-game-6172d.firebasestorage.app",
+    messagingSenderId: "258761218263",
+    appId: "1:258761218263:web:97867cb14aad5f5d5c7892",
+    databaseURL: "https://the-lost-temple-game-6172d-default-rtdb.firebaseio.com",
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+window.db = db;
+window.ref = ref;
+window.push = push;
+window.onValue = onValue;
+</script>
 </body>
 </html>
