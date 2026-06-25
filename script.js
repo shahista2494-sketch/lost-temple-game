@@ -209,7 +209,7 @@ function level5() {
                 🗝️ 🪨 🔮
             </div>
             <p style="color:gold; font-size:20px;">✨ You have all 3 items ✨</p>
-            <div id="shake-effect">💥🌍💥</div>
+            <div id="shake-effect">⚡💥🌟⚡</div>
             <p style="color:orange;">The ground shakes... 🌍💥</p>
             <button onclick="unlockTemple()">🔐 Enter The Temple</button>
             <button id="back-btn" onclick="level4()">《 Back</button>
