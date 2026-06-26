@@ -1,3 +1,5 @@
+let collectedItems = [];
+
 function saveScore(playerName, timeTaken) {
     const scoresRef = window.ref(window.db, 'scores');
     window.push(scoresRef, {
@@ -8,6 +10,7 @@ function saveScore(playerName, timeTaken) {
 }
 
 function goHome() {
+    collectedItems = [];
     document.body.innerHTML = `
         <h1>Welcome to The Lost Temple 🏛️</h1>
         <p>Your adventure begins here...</p>
@@ -16,6 +19,8 @@ function goHome() {
 }
 
 function startGame() {
+    collectedItems = [];
+    window.gameStartTime = Date.now();
     document.body.innerHTML = `
         <div id="game">
             <h1>🌿 Level 1 - Jungle Entry</h1>
@@ -39,6 +44,7 @@ function choosePath(direction) {
             </div>
         `;
     } else {
+        collectedItems = ['🗝'];
         document.body.innerHTML = `
             <div id="game">
                 <h1>🌸 Right Path!</h1>
@@ -56,6 +62,7 @@ function choosePath(direction) {
 }
 
 function useStick() {
+    collectedItems = ['🗺'];
     document.body.innerHTML = `
         <div id="game">
             <h1>💪 Brave Move!</h1>
@@ -106,6 +113,7 @@ function chooseBridge() {
 }
 
 function chooseRope() {
+    collectedItems.push('🪨');
     document.body.innerHTML = `
         <div id="game">
             <h1>💪 Smart Move!</h1>
@@ -134,6 +142,7 @@ function level3() {
 }
 
 function useWater() {
+    collectedItems.push('🔮');
     document.body.innerHTML = `
         <div id="game">
             <h1>💧 Smart Choice!</h1>
@@ -176,6 +185,7 @@ function level4() {
 
 function chooseSymbol(symbol) {
     if (symbol === 'moon') {
+        collectedItems.push('🔐');
         document.body.innerHTML = `
             <div id="game">
                 <h1>🎉 Correct Symbol!</h1>
@@ -205,10 +215,10 @@ function level5() {
     document.body.innerHTML = `
         <div id="game">
             <h1>🏛️ The Lost Temple...</h1>
-            <div style="font-size:50px; animation: popIn 1s ease-out;">
-                🗝️ 🪨 🔮
+            <div style="font-size:40px; animation: popIn 1s ease-out;">
+                ${collectedItems.join(' ')}
             </div>
-            <p style="color:gold; font-size:20px;">✨ You have all 3 items ✨</p>
+            <p style="color:gold; font-size:20px;">✨ You have all ${collectedItems.length} items ✨</p>
             <div id="shake-effect">⚡💥🌟⚡</div>
             <p style="color:orange;">The ground shakes... 🌍💥</p>
             <button onclick="unlockTemple()">🔐 Enter The Temple</button>
@@ -219,7 +229,8 @@ function level5() {
 
 function unlockTemple() {
     const playerName = prompt("🏆 You Won! Enter your name for the leaderboard:");
-    const endTime = new Date().toLocaleTimeString();
+    const timeTaken = Math.floor((Date.now() - window.gameStartTime) / 1000);
+const endTime = timeTaken + ' seconds';
     if (playerName) {
         saveScore(playerName, endTime);
     }
@@ -233,6 +244,7 @@ function unlockTemple() {
                 <button onclick="showLeaderboard()">🏆 View Leaderboard</button>
                 <button onclick="startGame()">🔄 Play Again</button>
             </div>
+             <button id="back-btn" onclick="unlockTemple()">《 Back</button>
         </div>
     `;
 }
@@ -244,7 +256,7 @@ function showLeaderboard() {
         let rows = '';
         if (data) {
             Object.values(data)
-                .sort((a, b) => a.time > b.time ? 1 : -1)
+                .sort((a, b) => parseInt(a.time) - parseInt(b.time))
                 .slice(0, 10)
                 .forEach((player, index) => {
                     rows += `<tr>
@@ -269,4 +281,4 @@ function showLeaderboard() {
             </div>
         `;
     }, { onlyOnce: true });
-            }
+}
